@@ -1,0 +1,33 @@
+<h1>Hungry? Eat a Burger!</h1>
+
+<h2>Available Burgers:</h2>
+
+<ul>
+  {{#each burgers}}
+    {{#unless devoured}}
+      <li><button class="change-devoured" data-id="{{this.id}}">EATCHA BURGER  </button> {{this.id}} {{this.burger_name}}</li>
+    {{/unless}}
+  {{/each}}
+</ul>
+
+<h2>You DEVOURED these!</h2>
+
+<ul>
+  {{#each burgers}}
+    {{#if devoured}}
+      <li><button class="delete-burger" data-id="{{this.id}}">YUCK! </button> {{this.id}} {{this.burger_name}}</li>
+    {{/if}}
+  {{/each}}
+</ul>
+
+<h2>Make me anotha Burger</h2>
+<form class="create-form">
+
+  <div class="form-group">
+    <label for="burger_name">Burger Type:</label> 
+    <input type="text" id="burger" name="name"> <button type="submit">Cook the Burger</button>
+  </div>
+  <!--default for devoured boolean is false -->
+</form>
+
+<!--would love to make image change when burger clicked-->
