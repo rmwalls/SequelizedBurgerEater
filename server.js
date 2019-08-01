@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-
+require("dotenv").config();
 var PORT = process.env.PORT || 8080;
 
 // Sets up the Express app to handle data parsing
