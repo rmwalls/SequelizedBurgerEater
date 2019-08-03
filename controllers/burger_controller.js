@@ -1,31 +1,39 @@
 // Dependencies
 const express = require("express");
 const router = express.Router();
-const burger = require ("../models/burger.js");
-
+const db = require ("../models");
 
 // Create all routes and set up logic within those routes where required.
 // Show all the burgers in correct area
+
 router.get("/", function(req, res) {
-  burger.showAll(function(data) {
-    var hbsObject = {
-      burgers: data
-    };
-    //console.log("burger_controller, line 12" + hbsObject);
-    res.render("index", hbsObject);
+  res.redirect("/burgers");
+})
+
+// router to get contents of database to show onscreen
+router.get("/burgers", function(req, res) {
+  // express callback response by calling burger.findAll
+  db.burgers.findAll()
+  .then(function(allBurgers) {
+    // Wrapping the array of returned burgers in a object so it can be referenced inside our handlebars
+    var burgersObject = { burgers: allBurgers };
+    res.render("index", burgersObject);
   });
 });
   
-// Add a burger
-router.post("/api/burgers", function(req, res) {
-  burger.create(req.body.burger_name, function(result) {
-    //console.log("new id = " + result.id);
-  res.json({ id: result.id }); // Send back the ID and name of the new burger
+
+router.post("/burgers/create", function(req, res) {
+  // takes the request object using it as input for burger.create
+  db.burgers.create({
+    name: req.body.burger_name,
+    devoured: false
+  }).then(function() {
+    res.redirect("/burgers");
   });
 });
   
 // change burger's devoured state  
-router.put("/api/burgers/:id", function(req, res) {
+router.put("/burgers/:id", function(req, res) {
   var id = req.params.id;
   burger.devourBurger(id, req.body.devoured,function(result) {
     //console.log(result)
@@ -34,7 +42,7 @@ router.put("/api/burgers/:id", function(req, res) {
 }) ;
   
 // delete a burger
-router.delete("/api/burgers/:id", function(req, res) {
+router.delete("/burgers/:id", function(req, res) {
   var id = req.params.id;
   burger.yuckyBurger(id, function(result) {
     res.json({result});
