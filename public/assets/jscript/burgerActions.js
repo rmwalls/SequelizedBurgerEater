@@ -1,13 +1,13 @@
-//This file handles button clicks on the web page
+//This file handles button clicks on the web page to send the entered data on to the controller
 var $burgerName = $("#burger");
 
 //add a burger
 $(".create-form").on("submit", function(event) {
   event.preventDefault(); // preventDefault on a submit event.
-  if($burgerName.val() !== ""){
+  if($burgerName.val() !== ""){ //burger name should not be blank
     var newBurger = {name: $burgerName.val()}
     $.ajax("/burgers", {
-      type: "POST",
+      type: "POST", //ajax POST request to the web server
       data: newBurger
     }).then(
       function() {
@@ -19,13 +19,13 @@ $(".create-form").on("submit", function(event) {
 }) //end on click
     
 //===================================
-//Change Devoured state 
+//Change Devoured state from false to true to move it to the devoured section on page
 $(function() {
   $(".change-devoured").on("click", function(event) {
     event.preventDefault();
     var id = $(this).data("id");
     $.ajax("/burgers/" + id, {
-      type: "PUT",
+      type: "PUT",  //ajax PUT request to the web server
       data: {devoured: 1}
     }).then(
       function() {
@@ -42,7 +42,7 @@ $(function() {
     event.preventDefault();
     var id = $(this).data("id");
     console.log("id is " + id);
-    // Send the DELETE request.
+    // Send the ajax DELETE request.
     $.ajax("/burgers/" + id, {
       type: "DELETE",
     }).then(

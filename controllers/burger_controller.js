@@ -58,10 +58,7 @@ router.delete("/burgers/:id", function (req, res) {
   db.burgers.destroy({
     where: {id: req.params.id}
   }).then(function(){
-    res.redirect("/burgers/");
-    console.log("(burgerController)you deleted burger:" + res.body.name);
-    })
+    res.status(200).end();
+    //console.log("(burgerController)you deleted burger");
+  })
 });
-
-// Export routes for server.js to use.
-module.exports = router;
