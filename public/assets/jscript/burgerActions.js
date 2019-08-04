@@ -41,13 +41,14 @@ $(function() {
   $(".delete-burger").on("click", function(event) {
     event.preventDefault();
     var id = $(this).data("id");
+    console.log("id is " + id);
     // Send the DELETE request.
     $.ajax("/burgers/" + id, {
       type: "DELETE",
     }).then(
       function() {
         console.log("burger deleted");
-      location.reload(); // Reload the page to get the updated list
+        location.reload(); // Reload the page to get the updated list
       }
     );
   })

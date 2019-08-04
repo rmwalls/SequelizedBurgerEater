@@ -21,6 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: false,
     },
   //  timestamps: false
+  //operatorsAliases: false,
   });
   return Burger;
 };
