@@ -7,9 +7,6 @@ var PORT = process.env.PORT || 8080;
 // Requiring models for syncing
 var db = require("./models");
 
-// Syncing the sequelize models and then starting the Express app
-// =============================================================
-
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

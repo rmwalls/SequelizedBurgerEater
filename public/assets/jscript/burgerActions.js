@@ -5,13 +5,13 @@ var $burgerName = $("#burger");
 $(".create-form").on("submit", function(event) {
   event.preventDefault(); // preventDefault on a submit event.
   if($burgerName.val() !== ""){
-    var newBurger = {burger_name: $burgerName.val()}
+    var newBurger = {name: $burgerName.val()}
     $.ajax("/burgers", {
       type: "POST",
       data: newBurger
     }).then(
       function() {
-        console.log("created new burger");
+        console.log("created new burger(burgerActions.js)");
         location.reload(); // Reload the page to get the updated list
       }
     );

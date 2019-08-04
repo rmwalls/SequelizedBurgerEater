@@ -18,17 +18,19 @@ router.get("/burgers", function(req, res) {
     // Wrapping the array of returned burgers in a object so it can be referenced inside our handlebars
     var burgersObject = { burgers: allBurgers };
     res.render("index", burgersObject);
+    console.log("burgersObject is " + burgersObject);
   });
 });
   
 
-router.post("/burgers/create", function(req, res) {
+router.post("/burgers", function(req, res) {
   // takes the request object using it as input for burger.create
   db.burgers.create({
-    name: req.body.burger_name,
+    burger_name: req.body.name,
     devoured: false
   }).then(function() {
     res.redirect("/burgers");
+    console.log("you added burger:" + req.body.name);
   });
 });
   
