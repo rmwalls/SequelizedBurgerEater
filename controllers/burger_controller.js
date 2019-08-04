@@ -18,7 +18,7 @@ router.get("/burgers", function(req, res) {
     // Wrapping the array of returned burgers in a object so it can be referenced inside our handlebars
     var burgersObject = { burgers: allBurgers };
     res.render("index", burgersObject);
-    console.log("burgersObject is " + burgersObject);
+    //console.log("burgersObject is " + burgersObject);
   });
 });
   
@@ -30,18 +30,22 @@ router.post("/burgers", function(req, res) {
     devoured: false
   }).then(function() {
     res.redirect("/burgers");
-    console.log("you added burger:" + req.body.name);
+    console.log("(burgerController)you added burger:" + req.body.name);
   });
 });
   
 // change burger's devoured state  
 router.put("/burgers/:id", function(req, res) {
-  var id = req.params.id;
-  burger.devourBurger(id, req.body.devoured,function(result) {
+  db.burgers.update(
+    {devoured: req.body.devoured}, {
+      where: {id:req.params.id} 
+}).then(function(result) {
     //console.log(result)
   res.json({ changed: result.changedRows })
-  });
-}) ;
+  res.redirect("/burgers");
+})
+});
+
   
 // delete a burger
 router.delete("/burgers/:id", function(req, res) {
