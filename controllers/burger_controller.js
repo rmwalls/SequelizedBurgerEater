@@ -62,3 +62,5 @@ router.delete("/burgers/:id", function (req, res) {
     //console.log("(burgerController)you deleted burger");
   })
 });
+
+module.exports = routers;
