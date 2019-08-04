@@ -24,9 +24,8 @@ router.get("/burgers", function (req, res) {
     });
 });
 
-
+// takes the request object using it as input for burger.create
 router.post("/burgers", function (req, res) {
-  // takes the request object using it as input for burger.create
   db.burgers.create({
     burger_name: req.body.name,
     devoured: false
@@ -63,4 +62,4 @@ router.delete("/burgers/:id", function (req, res) {
   })
 });
 
-module.exports = routers;
+module.exports = router;
